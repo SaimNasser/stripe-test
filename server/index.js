@@ -1,9 +1,10 @@
+require('dotenv').config();
 const express = require("express");
 const stripe = require("stripe")(
-  ""
+  process.env.SECRET_KEY
 );
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.post("/payment-sheet", async (req, res) => {
   try {
@@ -20,13 +21,12 @@ app.post("/payment-sheet", async (req, res) => {
       automatic_payment_methods: { enabled: true },
     });
 
-    res.send({
+    res.status(200).send({
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
     });
   } catch (error) {
-    console.log("ERROR: ", error);
     res.status(500).send({ error: "Failed to create payment sheet" });
   }
 });

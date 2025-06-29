@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <StripeProvider publishableKey={""}>
+      <StripeProvider publishableKey={process.env.EXPO_PUBLIC_API_KEY ?? ""}>
         <Stack.Navigator
           screenOptions={{
             animation: "slide_from_right",

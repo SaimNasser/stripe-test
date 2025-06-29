@@ -14,6 +14,7 @@ interface ButtonProps {
 export const Button = ({ title, isLoading = false, onPress }: ButtonProps) => {
   return (
     <TouchableOpacity
+      disabled={isLoading}
       style={styles.container}
       activeOpacity={0.7}
       onPress={onPress}
